@@ -7,4 +7,7 @@ public class JwtAuthenticationResponse {
 
     private String accessToken;
     private String refreshToken;
+    private long sapid;
+    private String role;
+    private String name;
 }

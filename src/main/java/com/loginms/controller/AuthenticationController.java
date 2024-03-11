@@ -1,11 +1,8 @@
 package com.loginms.controller;
 
 
+import com.loginms.dto.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import com.loginms.dto.JwtAuthenticationResponse;
-import com.loginms.dto.RefreshTokenRequest;
-import com.loginms.dto.SignUpRequest;
-import com.loginms.dto.SigninRequest;
 import com.loginms.entities.User;
 import com.loginms.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +30,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.sigin(signinRequest));
     }
     @PostMapping("/refresh")
-    public ResponseEntity<JwtAuthenticationResponse> token(@RequestBody RefreshTokenRequest refreshTokenRequest){
+    public ResponseEntity<AccessTokenRequest> token(@RequestBody RefreshTokenRequest refreshTokenRequest){
         return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
     }
 }

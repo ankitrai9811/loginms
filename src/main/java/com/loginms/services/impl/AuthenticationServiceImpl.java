@@ -1,10 +1,7 @@
 package com.loginms.services.impl;
 
 
-import com.loginms.dto.JwtAuthenticationResponse;
-import com.loginms.dto.RefreshTokenRequest;
-import com.loginms.dto.SignUpRequest;
-import com.loginms.dto.SigninRequest;
+import com.loginms.dto.*;
 import com.loginms.entities.User;
 import com.loginms.entities.UserRole;
 import com.loginms.repository.UserRepository;
@@ -60,18 +57,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     }
 
-    public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
+    public AccessTokenRequest refreshToken(RefreshTokenRequest refreshTokenRequest){
         String userEmail=jwtService.extractUserName(refreshTokenRequest.getToken());
         User user= userRepository.findByEmail(userEmail).orElseThrow();
         if(jwtService.isTokenValid(refreshTokenRequest.getToken(),user)){
             var jwt = jwtService.generateToken(user);
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+            AccessTokenRequest accessTokenRequest = new AccessTokenRequest();
 
-            jwtAuthenticationResponse.setAccessToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
+            accessTokenRequest.setAccessToken(jwt);
+            accessTokenRequest.setRefreshToken(refreshTokenRequest.getToken());
 
 
-            return jwtAuthenticationResponse;
+            return accessTokenRequest;
         }
         return null;
     }

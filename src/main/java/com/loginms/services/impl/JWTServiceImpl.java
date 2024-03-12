@@ -27,7 +27,7 @@ public class JWTServiceImpl implements JWTService {
     public String generateToken(UserDetails userDetails){
         return Jwts.builder().setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()*1000*60*24))
+                .setExpiration(new Date(System.currentTimeMillis()+30*1000))
                 .signWith(getSiginKey())
                 .compact();
         //, SignatureAlgorithm.ES256
@@ -36,7 +36,7 @@ public class JWTServiceImpl implements JWTService {
     public String generateRefreshToken(Map<String, Object> extractClaims,UserDetails userDetails){
         return Jwts.builder().setClaims(extractClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()*1000*60*48))
+                .setExpiration(new Date(System.currentTimeMillis()+5*60*60*1000))
                 .signWith(getSiginKey())
                 .compact();
         //, SignatureAlgorithm.ES256
